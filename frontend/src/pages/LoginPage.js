@@ -7,6 +7,8 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
+
+
 const modalstyle = {
   position: 'absolute',
   top: '50%',
@@ -19,67 +21,67 @@ const modalstyle = {
   p: 4,
 };
 
+const containerstyle = {
+  backgroundColor:"#DFEAF7",
+  width: "500px",
+  height: "500px",
+  marginLeft: "auto",
+  marginRight: "auto",
+  marginTop: "50px",
+  paddingTop: "70px",
+  borderRadius: "30px"
+}
+
 const LoginPage = () => {
 
     const [open, setOpen] = React.useState(false);
 
-    // this.state = {
-    //   open : false
-    // }
-
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);  
-    
+
+    function loginCheck(e) {
+      e.preventDefault();
+      console.log('You clicked signin.');
+      window.location.href = '/main'
+    }
     return (
-        <div>
-          <div>
-            <div 
-              style={{
-                backgroundColor:"#DFEAF7",
-                width: "500px",
-                height: "500px",
-                marginLeft: "auto",
-                marginRight: "auto",
-                marginTop: "50px",
-                paddingTop: "70px"
-              }}>
-                <div>
-                    <Typography variant="h6" style={{color: "dimgrey"}}>Sign in to share how cute your pet is!</Typography>
-                  </div>
-                <Stack spacing={2} ml= {20} mr= {20} > 
-                  
-                  <div> </div><div> </div><div> </div>
+      <div>
+        <div 
+          style={containerstyle}>
+            <div>
+                <Typography variant="h6" style={{color: "dimgrey"}}>Sign in to share how cute your pet is!</Typography>
+              </div>
+            <Stack spacing={2} ml= {20} mr= {20} > 
+              
+              <div> </div><div> </div><div> </div>
+              <TextField id="standard-basic" label="ID" variant="standard" />
+              <TextField id="standard-basic" label="PW" variant="standard" type="password"/>
+              <div> </div><div> </div><div> </div>
+              <Button onClick={loginCheck} variant="contained">SIGN IN</Button>
+              <Button onClick={handleOpen} variant="contained">SIGN UP</Button>
+            </Stack>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={modalstyle}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  SIGN UP
+                </Typography>
+                <Stack id="modal-modal-description" spacing={2} ml= {10} mr= {10} > 
+                  <TextField id="standard-basic" label="Username" variant="standard" />
                   <TextField id="standard-basic" label="ID" variant="standard" />
                   <TextField id="standard-basic" label="PW" variant="standard" type="password"/>
                   <div> </div><div> </div><div> </div>
-                  <Button variant="contained">SIGN IN</Button>
-                  <Button onClick={handleOpen} variant="contained">SIGN UP</Button>
+                  <Button variant="contained" >SIGN UP</Button>
                 </Stack>
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box sx={modalstyle}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                      SIGN UP
-                    </Typography>
-                    <Stack id="modal-modal-description" spacing={2} ml= {10} mr= {10} > 
-                      <TextField id="standard-basic" label="Username" variant="standard" />
-                      <TextField id="standard-basic" label="ID" variant="standard" />
-                      <TextField id="standard-basic" label="PW" variant="standard" type="password"/>
-                      <div> </div><div> </div><div> </div>
-                      <Button variant="contained" >SIGN UP</Button>
-                    </Stack>
-                  </Box>
-                </Modal>
-            </div>
-          </div>
+              </Box>
+            </Modal>
         </div>
+      </div>
     );
 }
-
-// ReactDOM.render(<LoginPage />, document.getElementById('app'))
 
 export default LoginPage;
