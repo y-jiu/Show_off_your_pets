@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
-
 
 const modalstyle = {
   position: 'absolute',
@@ -42,6 +39,7 @@ const LoginPage = () => {
     function loginCheck(e) {
       e.preventDefault();
       console.log('You clicked signin.');
+      // login 구현
       window.location.href = '/main'
     }
     return (

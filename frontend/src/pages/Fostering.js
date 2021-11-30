@@ -1,12 +1,11 @@
 import MenuBar from "../components/MenuBar";
 
-const MainPage = () => {
+const Fostering = () => {
   return (
     <div>
       <MenuBar>
-
       </MenuBar>
     </div>
   );
 }
-export default MainPage;
+export default Fostering;

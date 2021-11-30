@@ -1,24 +1,26 @@
 
 import * as React from 'react';
 import './App.css';
-import LoginPage from './pages/LoginPage';
-// import ReactDOM from 'react-dom';
-// import { Component } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import { Switch } from 'react-dom';
+import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
+import Gallery from './pages/Gallery';
+import Petoftheday from './pages/Petoftheday';
+import Fostering from './pages/Fostering';
 
 const App = () => {
 
   return (
     <div className="App">
-      {/* <LoginPage></LoginPage> */}
-        <BrowserRouter>
-          <Routes>
-            <Route exact path="/" element = {LoginPage()}></Route>
-            <Route path="/main" element = {MainPage()} ></Route>
-          </Routes>
-        </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element = {LoginPage()}></Route>
+          <Route path="/main" element = {MainPage()} ></Route>
+          <Route path="/gallery" element = {Gallery()} ></Route>
+          <Route path="/petoftheday" element = {Petoftheday()} ></Route>
+          <Route path="/fostering" element = {Fostering()} ></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
