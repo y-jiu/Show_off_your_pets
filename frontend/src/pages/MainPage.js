@@ -4,7 +4,6 @@ const MainPage = () => {
   return (
     <div>
       <MenuBar>
-
       </MenuBar>
     </div>
   );

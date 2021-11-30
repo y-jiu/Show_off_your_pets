@@ -9,6 +9,7 @@ const textStyle = {
   marginRight: "30px"
 }
 
+//눌렀을때 폰트 색상 바뀌는거 추가
 const MenuBar = () => {
   function goGallery(e) {
     e.preventDefault();
