@@ -40,7 +40,7 @@ const LoginPage = () => {
       e.preventDefault();
       console.log('You clicked signin.');
       // login 구현
-      window.location.href = '/main'
+      window.location.href = '/gallery'
     }
     return (
       <div>
