@@ -4,6 +4,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import TextField from '@mui/material/TextField';
+import SendIcon from '@mui/icons-material/Send';
+import IconButton from '@mui/material/IconButton';
 
 const Petoftheday = () => {
   return (
@@ -31,15 +33,28 @@ const Petoftheday = () => {
               <p style = {{fontSize: "15px", fontWeight: "bold", marginRight: "20px"}}>User 2 </p>
               <p style = {{fontSize: "15px"}}> 댓글댓글댓글 </p>
             </div>
-            
-           </CardContent>
-           {/* <input></input> */}
+          </CardContent>
+          <div style={{ display: "flex" }}>
+            <TextField
+              id="outlined-textarea"
+              label="Comments"
+              variant="filled"
+              InputLabelProps={{
+                style: { color: '#fff'}, 
+            }}
+            InputProps={{
+              style: { color: '#fff'}
+            }}
+            style={{ width: "85%"}}
+              multiline
+            />
+            <IconButton aria-label="add comments" component="span" style={{ width: "15%", color: "white"}}>
+              <SendIcon /> 
+            </IconButton>
+          </div>
         </Box>
-        
       </Card>
       </div>
-      
-
     </div>
   );
 }
