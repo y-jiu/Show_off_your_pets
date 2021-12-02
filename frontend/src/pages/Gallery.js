@@ -49,12 +49,11 @@ const Gallery = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          
           <Box sx={modalstyle}>
             <Posts />
           </Box>
         </Modal>
-        {/* button (누르면 Modal) 추가 / img 클릭하면 댓글이랑 공감 표시 modal 추가 */}
+        {/* button (누르면 Modal) 추가 */}
       </div>
     </div>
   );

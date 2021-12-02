@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -5,8 +6,24 @@ import CardMedia from '@mui/material/CardMedia';
 import TextField from '@mui/material/TextField';
 import SendIcon from '@mui/icons-material/Send';
 import IconButton from '@mui/material/IconButton';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Posts = () => {
+
+//   constructor(props){
+//     super(props);
+//     this.state = {
+//       like: false,
+//     }
+//   } 
+
+  const [like, setLike] = React.useState(true);
+  const handleLike = () => { like ? setLike(false) : setLike(true) };
+
+  // this.state = {
+  //   like: false
+  // }
 
   return(
     <Card style = {{ height: "570px", backgroundColor:"#2F323B", display: 'flex'}}>
@@ -31,6 +48,12 @@ const Posts = () => {
         </div>
       </CardContent>
       <div style={{ display: "flex" }}>
+        <IconButton aria-label="like" component="span" onClick={handleLike} style={{ width: "10%", color: "white"}}>
+          { like
+            ? <FavoriteBorderIcon /> 
+            : <FavoriteIcon />
+          }
+        </IconButton>
         <TextField
           id="outlined-textarea"
           label="Comments"
@@ -41,10 +64,10 @@ const Posts = () => {
         InputProps={{
           style: { color: '#fff'}
         }}
-        style={{ width: "85%"}}
+        style={{ width: "80%"}}
           multiline
         />
-        <IconButton aria-label="add comments" component="span" style={{ width: "15%", color: "white"}}>
+        <IconButton aria-label="add comments" component="span" style={{ width: "10%", color: "white"}}>
           <SendIcon /> 
         </IconButton>
       </div>
