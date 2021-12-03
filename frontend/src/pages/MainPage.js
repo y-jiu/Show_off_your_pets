@@ -6,6 +6,6 @@ const MainPage = () => {
       <MenuBar>
       </MenuBar>
     </div>
-  );
+  ); 
 }
 export default MainPage;

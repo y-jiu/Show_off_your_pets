@@ -9,6 +9,10 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { createTheme, ThemeProvider } from '@material-ui/core'
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import Upload from '../components/Upload';
 
 const columns = [
   { id: 'id', label: 'ID', width: 70 },
@@ -32,6 +36,17 @@ const theme = createTheme({
   }
 });
 
+const modalstyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '50%',
+  backgroundColor:"#2F323B",
+  boxShadow: 24,
+  p: 4,
+};
+
 const Fostering = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -45,17 +60,33 @@ const Fostering = () => {
     setPage(0);
   };
 
+  const [openupload, setOpenUpload] = React.useState(false);
+  const handleOpenUpload = () => setOpenUpload(true);
+  const handleCloseUpload = () => setOpenUpload(false);  
+
   return (
     <div>
-       
       <MenuBar>
       </MenuBar>
+      <div style = {{width: "50%", marginTop: "50px"}}>
+      <Button variant="contained" style = {{backgroundColor: "grey", marginLeft: "120px"}} onClick={handleOpenUpload}>New Image</Button>
+        <Modal
+            open={openupload}
+            onClose={handleCloseUpload}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+          <Box sx={modalstyle}>
+            <Upload></Upload>
+          </Box>
+        </Modal>
+      </div>
       <div style = {{width: "50%", margin: "auto", marginTop: "50px"}}>
       <ThemeProvider theme={theme}>
         <Paper sx={{ width: '100%', overflow: 'hidden'}}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
-            <TableHead >
+            <TableHead>
               <TableRow>
                 {columns.map((column) => (
                   <TableCell
@@ -102,7 +133,6 @@ const Fostering = () => {
       </Paper>
       </ThemeProvider>
       </div>
-      
     </div>
   );
 }

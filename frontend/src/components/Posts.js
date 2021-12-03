@@ -11,19 +11,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Posts = () => {
 
-//   constructor(props){
-//     super(props);
-//     this.state = {
-//       like: false,
-//     }
-//   } 
-
   const [like, setLike] = React.useState(true);
   const handleLike = () => { like ? setLike(false) : setLike(true) };
-
-  // this.state = {
-  //   like: false
-  // }
 
   return(
     <Card style = {{ height: "570px", backgroundColor:"#2F323B", display: 'flex'}}>
