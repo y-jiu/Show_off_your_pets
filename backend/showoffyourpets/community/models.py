@@ -5,3 +5,19 @@ class User(models.Model):
     user_name = models.CharField(max_length=200)
     user_id = models.CharField(max_length=200)
     user_pw = models.CharField(max_length=200)
+
+class Post(models.Model):
+  title = models.CharField(max_length=200)
+  contents = models.TextField()
+  photo = models.ImageField(blank=True, null=True)
+
+class Comment(models.Model):
+  comment = models.TextField()
+
+class FosterPost(models.Model):
+  title = models.CharField(max_length=200)
+  contents = models.TextField()
+  photo = models.ImageField(blank=True, null=True)
+
+class FosterComment(models.Model):
+  comment = models.TextField()

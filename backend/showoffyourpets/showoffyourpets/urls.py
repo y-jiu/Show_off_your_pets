@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
 from rest_framework_swagger.views import get_swagger_view
-
+from django.conf.urls.static import static
+from django.conf import settings
 
 import community.api
 
@@ -26,10 +27,15 @@ app_name='community'
 
 router = routers.DefaultRouter()
 router.register('users', community.api.UserViewSet)
-
+router.register('posts', community.api.PostViewSet)
+router.register('comments', community.api.CommentViewSet)
+router.register('fosterposts', community.api.FosterPostViewSet)
+router.register('fostercomments', community.api.FosterCommentViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/doc', get_swagger_view(title='Rest API Document')),
     url(r'^api/v1/', include((router.urls, 'community'), namespace='api')),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
