@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -8,10 +7,11 @@ import Gallery from './pages/Gallery';
 import Petoftheday from './pages/Petoftheday';
 import Fostering from './pages/Fostering';
 import { createTheme, ThemeProvider } from '@material-ui/core'
+
 const App = () => {
   const theme = createTheme({
     palette: {
-      type: "dark",
+      mode: "dark",
     }
   });
 
