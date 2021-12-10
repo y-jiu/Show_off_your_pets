@@ -11,15 +11,23 @@ const textStyle = {
 
 //눌렀을때 폰트 색상 바뀌는거 추가
 const MenuBar = () => {
+
+  // const [selected, setSelected] = React.useState('')
+  // // {color:'#576CAB'}
+  // const handleSelected = (e) => {
+  //   setSelected('#576CAB');
+  // }
   function goGallery(e) {
     e.preventDefault();
-    window.location.href = '/gallery'
+    // window.location.href = '/gallery'
+    console.log(e)
   }
 
   function goPetofttheday(e) {
     e.preventDefault();
     window.location.href = '/petoftheday'
   }
+
   function goFostering(e) {
     e.preventDefault();
     window.location.href = '/fostering'
