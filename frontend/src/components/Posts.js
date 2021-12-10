@@ -12,18 +12,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 const Posts = () => {
 
   const [like, setLike] = React.useState(true);
-  // let [posts, setPosts] = useState([]);
+  
   const handleLike = () => { like ? setLike(false) : setLike(true) };
-  // useEffect(() => {
-  //   getPosts()
-  // }, [])
-
-  // let getPosts = async () =>{
-  //   let res = await fetch('http://localhost:8000/api/v1/posts/')
-  //   let data = await res.json()
-  //   console.log(data)
-  //   setPosts(data)
-  // }
+  
 
   return(
     <Card style = {{ height: "570px", backgroundColor:"#2F323B", display: 'flex'}}>

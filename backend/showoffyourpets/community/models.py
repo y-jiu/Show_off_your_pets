@@ -7,7 +7,7 @@ class User(models.Model):
   user_pw = models.CharField(max_length=200)
 
 class Post(models.Model):
-  title = models.CharField(max_length=1000)
+  # title = models.CharField(max_length=1000)
   contents = models.TextField()
   photo = models.ImageField(blank=True, null=True)
   user_name = models.CharField(max_length=200, default = '')

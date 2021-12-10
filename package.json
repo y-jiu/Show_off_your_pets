@@ -8,6 +8,7 @@
     "@mui/material": "^5.2.2",
     "@mui/styles": "^5.2.1",
     "axios": "^0.24.0",
+    "image-to-base64": "^2.2.0",
     "react-images-upload": "^1.2.8",
     "react-router-dom": "^6.0.2"
   }
