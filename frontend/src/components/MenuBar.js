@@ -19,8 +19,7 @@ const MenuBar = () => {
   // }
   function goGallery(e) {
     e.preventDefault();
-    // window.location.href = '/gallery'
-    console.log(e)
+    window.location.href = '/gallery'
   }
 
   function goPetofttheday(e) {

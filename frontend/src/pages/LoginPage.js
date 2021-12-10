@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
@@ -36,25 +36,40 @@ const LoginPage = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);  
 
-    // const [signup, setSignup] = React.useState({username: '', id:'', password: ''});
     const [username,setUsername] =  React.useState('')
     const [id,setId] =  React.useState('')
     const [password,setPassword] =  React.useState('')
-    const onSignup_username = (e) =>{
+    const handleUsername = (e) =>{
       setUsername(e.target.value)
     }
-    const onSignup_id = (e) =>{
+    const handleId = (e) =>{
       setId(e.target.value)
     }
-    const onSignup_password = (e) =>{
+    const handlePassword = (e) =>{
       setPassword(e.target.value)
     }
+    let [loginauth, setLogin] = React.useState([]);
+
+    let getLogin = async () =>{
+      let res = await fetch('/api/v1/users/')
+      let data = await res.json()
+      setLogin(data)
+      
+    }
+    useEffect(() => {
+      getLogin()
+    }, [])
 
     function loginCheck(e) {
       e.preventDefault();
-      console.log('You clicked signin.');
-      // login 구현
-      window.location.href = '/gallery'
+      for(let i = 0 ; i < loginauth.length ; i++){
+        console.log(loginauth[i])
+        if (loginauth[i].user_id == id){
+          if(loginauth[i].user_pw == password){
+            window.location.href = '/gallery'
+          }
+        }
+      }
     }
     const signedUp = () =>{
       let formData = new FormData();
@@ -73,6 +88,7 @@ const LoginPage = () => {
       ).catch(
           error => console.log(error) // Handle the error response object
       );
+      window.location.href = '/'
     }
 
     return (
@@ -85,8 +101,8 @@ const LoginPage = () => {
             <Stack spacing={2} ml= {20} mr= {20} > 
               
               <div> </div><div> </div><div> </div>
-              <TextField id="standard-basic" label="ID" variant="standard" />
-              <TextField id="standard-basic" label="PW" variant="standard" type="password"/>
+              <TextField id="standard-basic" onChange={handleId} label="ID" variant="standard" />
+              <TextField id="standard-basic" onChange={handlePassword} label="PW" variant="standard" type="password"/>
               <div> </div><div> </div><div> </div>
               <Button onClick={loginCheck} variant="contained">SIGN IN</Button>
               <Button onClick={handleOpen} variant="contained">SIGN UP</Button>
@@ -102,9 +118,9 @@ const LoginPage = () => {
                   SIGN UP
                 </Typography>
                 <Stack id="modal-modal-description" spacing={2} ml= {10} mr= {10} > 
-                  <TextField name = "username" id="standard-basic" onChange={onSignup_username} label="Username" variant="standard" />
-                  <TextField name = "id" id="standard-basic" onChange={onSignup_id} label="ID" variant="standard" />
-                  <TextField name = "password" id="standard-basic" onChange={onSignup_password} label="PW" variant="standard" type="password"/>
+                  <TextField name = "username" id="standard-basic" onChange={handleUsername} label="Username" variant="standard" />
+                  <TextField name = "id" id="standard-basic" onChange={handleId} label="ID" variant="standard" />
+                  <TextField name = "password" id="standard-basic" onChange={handlePassword} label="PW" variant="standard" type="password"/>
                   <div> </div><div> </div><div> </div>
                   <Button variant="contained" onClick={()=>{signedUp();handleClose();}} >SIGN UP</Button>
                 </Stack>
