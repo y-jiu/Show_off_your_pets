@@ -9,24 +9,35 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-const Posts = () => {
+const Posts = props => {
 
   const [like, setLike] = React.useState(true);
   
   const handleLike = () => { like ? setLike(false) : setLike(true) };
-  
+
+  let [posts, setPosts] = useState([]);
+  useEffect(() => {
+    getPosts()
+  }, [])
+
+  let getPosts = async () =>{
+    let res = await fetch('/api/v1/posts/')
+    let data = await res.json()
+    
+    setPosts(data)
+  }
 
   return(
     <Card style = {{ height: "570px", backgroundColor:"#2F323B", display: 'flex'}}>
       <CardMedia
         component="img"
         sx={{ width: "45%", height: "45%", marginTop: "auto", marginBottom: "auto", marginLeft: "20px", marginRight: "20px" }}
-        image="https://file.mk.co.kr/meet/neds/2021/06/image_readtop_2021_535745_16226846584668330.jpg"
+        image={posts[4]?.photo}
       />
       <Box sx={{ display: 'flex', flexDirection: 'column', width: "100%"}}>
         <CardContent sx={{ flex: '1 0 auto', color: "white", textAlign: "left" , borderBottom: "2px solid grey"}}>
           <div style = {{fontSize: "20px", marginBottom: "20px",marginTop: "20px"}}>User 1</div>
-          <div style = {{fontSize: "15px"}}>내용내용내용</div>
+          <div style = {{fontSize: "15px"}}>{posts[4]?.contents}</div>
       </CardContent>
       <CardContent sx={{ flex: '1 0 auto', color: "white" }}>
         <div style ={{display:"flex"}}>

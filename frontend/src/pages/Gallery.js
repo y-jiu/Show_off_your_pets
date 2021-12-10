@@ -19,7 +19,6 @@ const modalstyle = {
 
 const Gallery = () => {
   const [openpost, setOpenPost] = React.useState(false);
-
   const handleOpenPost = () => setOpenPost(true);
   const handleClosePost = () => setOpenPost(false);  
 
@@ -56,17 +55,8 @@ const Gallery = () => {
       <MenuBar>
       </MenuBar>
       <div style = {{width: "50%", marginTop: "50px"}}>
-      <Button variant="contained" style = {{backgroundColor: "grey", marginLeft: "120px"}} onClick={handleOpenUpload}>New Image</Button>
-        <Modal
-            open={openupload}
-            onClose={handleCloseUpload}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-          <Box sx={modalstyle}>
-            <Upload></Upload>
-          </Box>
-        </Modal>
+        <Button variant="contained" style = {{backgroundColor: "grey", marginLeft: "120px"}} onClick={handleOpenUpload}>New Image</Button>
+        <Upload open={openupload} close={handleCloseUpload}></Upload>
       </div>
       <div style = {{width: "50%", margin: "auto", marginTop: "50px"}}>   
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
@@ -79,7 +69,7 @@ const Gallery = () => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={modalstyle}>
-            <Posts />
+            <Posts/>
           </Box>
         </Modal>
       </div>
