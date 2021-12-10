@@ -19,7 +19,8 @@ const modalstyle = {
 
 const Gallery = () => {
   const [openpost, setOpenPost] = React.useState(false);
-  const handleOpenPost = () => setOpenPost(true);
+  const [idx, setIdx] = React.useState(0);
+  const handleOpenPost = (idx) => {setOpenPost(true); setIdx(idx)};
   const handleClosePost = () => setOpenPost(false);  
 
   const [openupload, setOpenUpload] = React.useState(false);
@@ -42,7 +43,7 @@ const Gallery = () => {
     const result = [];
     for (let i = 0; i < posts.length; i++) {
       result.push(
-      <Box gridColumn="span 3" onClick = {handleOpenPost}>
+      <Box gridColumn="span 3" onClick = {()=> handleOpenPost(i)}>
         <img src = {posts[i].photo} width="100%" height="100%"></img>
       </Box>
     );
@@ -69,7 +70,7 @@ const Gallery = () => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={modalstyle}>
-            <Posts/>
+            <Posts postidx = {idx}/>
           </Box>
         </Modal>
       </div>

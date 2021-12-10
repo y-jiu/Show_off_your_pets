@@ -20,14 +20,12 @@ const modalstyle = {
 
 const Upload = props => {
   const {isOpen, close} = props
-  console.log(props)
   const [pictures, setPictures] = React.useState([]);
   const [text, setText] = React.useState('');
   const onDrop = async (picture) => {
     setPictures([...pictures, picture]);
   };
-
-
+  
   const onInput = (e) =>{
     setText(e.target.value);
   }
@@ -36,7 +34,6 @@ const Upload = props => {
     let formData = new FormData();
     formData.append('contents',text);
     formData.append('photo', pictures[0][0]);
-
     fetch('api/v1/posts/', { // Your POST endpoint
         method: 'POST',
         body: formData
@@ -85,7 +82,7 @@ const Upload = props => {
           />
         </div>
         <div style = {{marginTop: "50px"}}>
-          <Button variant="contained" onClick ={save} style = {{backgroundColor: "grey", float: "right"}}>Save</Button>
+          <Button variant="contained" onClick ={()=>{save(); close();}} style = {{backgroundColor: "grey", float: "right"}}>Save</Button>
         </div>
         </Box>
         </Modal>

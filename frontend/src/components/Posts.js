@@ -10,6 +10,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Posts = props => {
+  const idx = props.postidx
 
   const [like, setLike] = React.useState(true);
   
@@ -32,12 +33,12 @@ const Posts = props => {
       <CardMedia
         component="img"
         sx={{ width: "45%", height: "45%", marginTop: "auto", marginBottom: "auto", marginLeft: "20px", marginRight: "20px" }}
-        image={posts[4]?.photo}
+        image={posts[idx]?.photo}
       />
       <Box sx={{ display: 'flex', flexDirection: 'column', width: "100%"}}>
         <CardContent sx={{ flex: '1 0 auto', color: "white", textAlign: "left" , borderBottom: "2px solid grey"}}>
           <div style = {{fontSize: "20px", marginBottom: "20px",marginTop: "20px"}}>User 1</div>
-          <div style = {{fontSize: "15px"}}>{posts[4]?.contents}</div>
+          <div style = {{fontSize: "15px"}}>{posts[idx]?.contents}</div>
       </CardContent>
       <CardContent sx={{ flex: '1 0 auto', color: "white" }}>
         <div style ={{display:"flex"}}>
