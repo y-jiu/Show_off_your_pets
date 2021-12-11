@@ -47,6 +47,7 @@ const Upload = props => {
     ).catch(
         error => console.log(error) // Handle the error response object
     );
+    window.location.href = `/gallery`
   }
 
   return(

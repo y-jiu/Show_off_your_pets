@@ -35,7 +35,6 @@ const Gallery = () => {
   let getPosts = async () =>{
     let res = await fetch('/api/v1/posts/')
     let data = await res.json()
-    console.log(data)
     setPosts(data)
   }
 
@@ -63,16 +62,7 @@ const Gallery = () => {
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
           {renderPost()}
         </Box>
-        <Modal
-          open={openpost}
-          onClose={handleClosePost}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={modalstyle}>
-            <Posts postidx = {idx}/>
-          </Box>
-        </Modal>
+        <Posts postidx = {idx} open={openpost} close={handleClosePost}/>
       </div>
     </div>
   );

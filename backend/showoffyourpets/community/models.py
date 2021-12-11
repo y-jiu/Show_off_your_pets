@@ -14,7 +14,7 @@ class Post(models.Model):
 class Comment(models.Model):
   comment = models.TextField()
   user_name = models.CharField(max_length=200, default = '')
-  post = models.ForeignKey(Post,on_delete=models.CASCADE)
+  # post = models.ForeignKey(Post,on_delete=models.CASCADE)
 
 class FosterPost(models.Model):
   title = models.CharField(max_length=1000)
