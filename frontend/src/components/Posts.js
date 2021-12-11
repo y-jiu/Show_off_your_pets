@@ -39,9 +39,16 @@ const Posts = props => {
     });
     window.location.href = `/gallery`
   }
+
   let [posts, setPosts] = useState([]);
+  let [comments, setComments] = useState([]);
+  let [newcomment, setNewcomment] = useState('');
+  const onInput = (e) =>{
+    setNewcomment(e.target.value);
+  }
   useEffect(() => {
     getPosts()
+    getComments()
   }, [])
 
   let getPosts = async () =>{
@@ -50,6 +57,13 @@ const Posts = props => {
     
     setPosts(data)
   }
+
+  let getComments = async () =>{
+    let res = await fetch('/api/v1/comments/')
+    let data = await res.json()
+    setComments(data)
+  }
+
   const modalstyle = {
     position: 'absolute',
     top: '50%',
@@ -61,6 +75,43 @@ const Posts = props => {
     p: 4,
   };
   
+  const renderComments = () => {
+    const result = [];
+    for (let i = 0; i < comments.length; i++) {
+      if(comments[i]?.post_id == posts[idx]?.id){
+        result.push(
+          <div style ={{display:"flex"}}>
+            <p style = {{fontSize: "15px", fontWeight: "bold", marginRight: "20px"}}> {comments[i].user_name} </p>
+            <p style = {{fontSize: "15px"}}> {comments[i].comment} </p>
+          </div>
+      );
+      }
+    }
+    return result;
+  };
+  const save = async () => {
+    console.log(newcomment)
+    console.log(sessionStorage.getItem('user_name'))
+    console.log(posts[idx]?.id)
+    let formData = new FormData();
+    formData.append('comment',newcomment);
+    formData.append('user_name',sessionStorage.getItem('user_name'))
+    formData.append('post_id', posts[idx]?.id);
+
+    fetch('api/v1/comments/', { // Your POST endpoint
+        method: 'POST',
+        body: formData
+    }).then(
+        response => response.json() // if the response is a JSON object
+    ).then(
+        //TODO:save also in customer object
+        success => console.log(success) 
+        // Handle the success response object
+    ).catch(
+        error => console.log(error) // Handle the error response object
+    );
+    window.location.reload()
+  }
 
   return(
     <div>
@@ -85,14 +136,7 @@ const Posts = props => {
               <div style = {{fontSize: "15px"}}>{posts[idx]?.contents}</div>
           </CardContent>
           <CardContent sx={{ flex: '1 0 auto', color: "white" }}>
-            <div style ={{display:"flex"}}>
-              <p style = {{fontSize: "15px", fontWeight: "bold", marginRight: "20px"}}>User 2 </p>
-              <p style = {{fontSize: "15px"}}> 댓글댓글댓글 </p>
-            </div>
-            <div style ={{display:"flex"}}>
-              <p style = {{fontSize: "15px", fontWeight: "bold", marginRight: "20px"}}>User 2 </p>
-              <p style = {{fontSize: "15px"}}> 댓글댓글댓글 </p>
-            </div>
+            {renderComments()}
           </CardContent>
           <div style={{ display: "flex" }}>
             <IconButton aria-label="like" component="span" onClick={handleLike} style={{ width: "10%", color: "white"}}>
@@ -104,6 +148,8 @@ const Posts = props => {
             <TextField
               id="outlined-textarea"
               label="Comments"
+              value={newcomment}
+              onChange={onInput}
               variant="filled"
               InputLabelProps={{
                 style: { color: '#fff'}, 
@@ -115,7 +161,7 @@ const Posts = props => {
               multiline
             />
             <IconButton aria-label="add comments" component="span" style={{ width: "10%", color: "white"}}>
-              <SendIcon /> 
+              <SendIcon onClick={save} /> 
             </IconButton>
           </div>
         </Box>
