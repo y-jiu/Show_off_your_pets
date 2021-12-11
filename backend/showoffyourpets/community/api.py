@@ -2,7 +2,6 @@ from .models import Comment, User, Post, FosterComment, FosterPost
 from rest_framework import serializers, viewsets
 
 class UserSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
         fields = '__all__'

@@ -7,7 +7,6 @@ class User(models.Model):
   user_pw = models.CharField(max_length=200)
 
 class Post(models.Model):
-  # title = models.CharField(max_length=1000)
   contents = models.TextField()
   photo = models.ImageField(blank=True, null=True)
   user_name = models.CharField(max_length=200, default = '')
@@ -15,6 +14,7 @@ class Post(models.Model):
 class Comment(models.Model):
   comment = models.TextField()
   user_name = models.CharField(max_length=200, default = '')
+  post = models.ForeignKey(Post,on_delete=models.CASCADE)
 
 class FosterPost(models.Model):
   title = models.CharField(max_length=1000)

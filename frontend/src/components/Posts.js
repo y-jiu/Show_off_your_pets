@@ -37,7 +37,7 @@ const Posts = props => {
       />
       <Box sx={{ display: 'flex', flexDirection: 'column', width: "100%"}}>
         <CardContent sx={{ flex: '1 0 auto', color: "white", textAlign: "left" , borderBottom: "2px solid grey"}}>
-          <div style = {{fontSize: "20px", marginBottom: "20px",marginTop: "20px"}}>User 1</div>
+          <div style = {{fontSize: "20px", marginBottom: "20px",marginTop: "20px"}}>{posts[idx]?.user_name}</div>
           <div style = {{fontSize: "15px"}}>{posts[idx]?.contents}</div>
       </CardContent>
       <CardContent sx={{ flex: '1 0 auto', color: "white" }}>

@@ -34,6 +34,7 @@ const Upload = props => {
     let formData = new FormData();
     formData.append('contents',text);
     formData.append('photo', pictures[0][0]);
+    formData.append('user_name',sessionStorage.getItem('user_name'))
     fetch('api/v1/posts/', { // Your POST endpoint
         method: 'POST',
         body: formData

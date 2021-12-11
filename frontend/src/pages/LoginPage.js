@@ -30,7 +30,7 @@ const containerstyle = {
 }
 
 const LoginPage = () => {
-
+    
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => setOpen(true);
@@ -39,6 +39,7 @@ const LoginPage = () => {
     const [username,setUsername] =  React.useState('')
     const [id,setId] =  React.useState('')
     const [password,setPassword] =  React.useState('')
+
     const handleUsername = (e) =>{
       setUsername(e.target.value)
     }
@@ -63,10 +64,13 @@ const LoginPage = () => {
     function loginCheck(e) {
       e.preventDefault();
       for(let i = 0 ; i < loginauth.length ; i++){
-        console.log(loginauth[i])
+        // console.log(loginauth[i])
         if (loginauth[i].user_id == id){
           if(loginauth[i].user_pw == password){
-            window.location.href = '/gallery'
+            sessionStorage.setItem("auth", "true");
+            sessionStorage.setItem("user_name", loginauth[i].user_name);
+            // console.log(loginauth[i].user_name)
+            window.location.href = `/gallery`
           }
         }
       }
