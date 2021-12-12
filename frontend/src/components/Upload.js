@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-// import { useEffect, useState } from 'react';
+
 
 const modalstyle = {
   position: 'absolute',
@@ -83,7 +83,7 @@ const Upload = props => {
           />
         </div>
         <div style = {{marginTop: "50px"}}>
-          <Button variant="contained" onClick ={()=>{save()}} style = {{backgroundColor: "grey", float: "right"}}>Save</Button>
+          <Button variant="contained" onClick ={()=>{save()}} style = {{backgroundColor: "#576CAB", float: "right"}}>Save</Button>
         </div>
         </Box>
         </Modal>
