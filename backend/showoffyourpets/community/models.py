@@ -11,6 +11,7 @@ class Post(models.Model):
   contents = models.TextField()
   photo = models.ImageField(blank=True, null=True)
   user_name = models.CharField(max_length=200, default = '')
+  likes = models.ManyToManyField(User,blank=True)
 
 class Comment(models.Model):
   id = models.BigAutoField(help_text="Comment ID", primary_key=True)

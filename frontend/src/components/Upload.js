@@ -35,17 +35,15 @@ const Upload = props => {
     formData.append('contents',text);
     formData.append('photo', pictures[0][0]);
     formData.append('user_name',sessionStorage.getItem('user_name'))
-    fetch('api/v1/posts/', { // Your POST endpoint
+    fetch('api/v1/posts/', { 
         method: 'POST',
         body: formData
     }).then(
-        response => response.json() // if the response is a JSON object
+        response => response.json()
     ).then(
-        //TODO:save also in customer object
         success => console.log(success) 
-        // Handle the success response object
     ).catch(
-        error => console.log(error) // Handle the error response object
+        error => console.log(error) 
     );
     window.location.href = `/gallery`
   }
@@ -84,7 +82,7 @@ const Upload = props => {
           />
         </div>
         <div style = {{marginTop: "50px"}}>
-          <Button variant="contained" onClick ={()=>{save(); close();}} style = {{backgroundColor: "grey", float: "right"}}>Save</Button>
+          <Button variant="contained" onClick ={()=>{save()}} style = {{backgroundColor: "grey", float: "right"}}>Save</Button>
         </div>
         </Box>
         </Modal>

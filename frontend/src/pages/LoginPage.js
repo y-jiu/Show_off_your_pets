@@ -64,12 +64,10 @@ const LoginPage = () => {
     function loginCheck(e) {
       e.preventDefault();
       for(let i = 0 ; i < loginauth.length ; i++){
-        // console.log(loginauth[i])
         if (loginauth[i].user_id == id){
           if(loginauth[i].user_pw == password){
-            sessionStorage.setItem("auth", "true");
             sessionStorage.setItem("user_name", loginauth[i].user_name);
-            // console.log(loginauth[i].user_name)
+            sessionStorage.setItem("user_id", loginauth[i].id);
             window.location.href = `/gallery`
           }
         }
@@ -80,17 +78,15 @@ const LoginPage = () => {
       formData.append('user_name',username);
       formData.append('user_id',id);
       formData.append('user_pw',password);
-      fetch('api/v1/users/', { // Your POST endpoint
+      fetch('api/v1/users/', { 
         method: 'POST',
         body:formData
       }).then(
-          response => response.json() // if the response is a JSON object
+          response => response.json()
       ).then(
-          //TODO:save also in customer object
           success => console.log(success) 
-          // Handle the success response object
       ).catch(
-          error => console.log(error) // Handle the error response object
+          error => console.log(error)
       );
       window.location.href = '/'
     }
@@ -126,7 +122,7 @@ const LoginPage = () => {
                   <TextField name = "id" id="standard-basic" onChange={handleId} label="ID" variant="standard" />
                   <TextField name = "password" id="standard-basic" onChange={handlePassword} label="PW" variant="standard" type="password"/>
                   <div> </div><div> </div><div> </div>
-                  <Button variant="contained" onClick={()=>{signedUp();handleClose();}} >SIGN UP</Button>
+                  <Button variant="contained" onClick={()=>{signedUp(); handleClose();}} >SIGN UP</Button>
                 </Stack>
               </Box>
             </Modal>

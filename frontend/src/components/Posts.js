@@ -15,27 +15,76 @@ import Modal from '@mui/material/Modal';
 const Posts = props => {
   const idx = props.postidx
 
-  const [like, setLike] = React.useState(true);
+  const [like, setLike] = React.useState(false);
+  const handleLike = () => { 
+    let likeusers = posts[idx]?.likes
+    if(like == true){
+      setLike(false);
+      for(let i = 0 ; i < posts[idx]?.likes.length ; i++ ){
+        if(posts[idx]?.likes[i] == parseInt(sessionStorage.getItem('user_id'))){
+          likeusers.splice(i,1);
+        }
+      }
+      const update = {
+        id:posts[idx]?.id,
+        contents:posts[idx]?.contents,
+        user_name:posts[idx]?.user_name,
+        likes : likeusers
+      }
+      let url = 'api/v1/posts/'+posts[idx]?.id+'/'
+      axios.patch(url, update)
+      .then((result) => {
+        console.log(result.data);
+      })
+      .catch((error) => {
+        if (error.response){
+          console.log(error.response)
+          }else if(error.request){
+            console.log(error.request)
+          }else if(error.message){
+            console.log(error.message)
+          }
+      })
+    }else{
+      setLike(true);
+      likeusers.push(parseInt(sessionStorage.getItem('user_id')))
+      const update = {
+        id:posts[idx]?.id,
+        contents:posts[idx]?.contents,
+        user_name:posts[idx]?.user_name,
+        likes : likeusers
+      }
+      let url = 'api/v1/posts/'+posts[idx]?.id+'/'
+      axios.patch(url, update)
+      .then((result) => {
+        console.log(result.data);
+      })
+      .catch((error) => {
+        if (error.response){
+          console.log(error.response)
+          }else if(error.request){
+            console.log(error.request)
+          }else if(error.message){
+            console.log(error.message)
+          }
+      })
+  }
   
-  const handleLike = () => { like ? setLike(false) : setLike(true) };
+ };
 
   const isOpen = props.open
   const close = props.close
 
   const handleDelete = (idx) =>{
       let url = 'api/v1/posts/'+posts[idx]?.id+'/'
-      console.log(url)
       axios.delete(url)
     .then(function (response) {
-      // handle success
       console.log(response);
     })
     .catch(function (error) {
-      // handle error
       console.log(error);
     })
     .then(function () {
-      // always executed
     });
     window.location.href = `/gallery`
   }
@@ -54,9 +103,15 @@ const Posts = props => {
   let getPosts = async () =>{
     let res = await fetch('/api/v1/posts/')
     let data = await res.json()
-    
     setPosts(data)
+    for (let i = 0 ; i < data[idx].likes.length ; i++){
+      if(data[idx].likes[i] == parseInt(sessionStorage.getItem('user_id'))){
+        setLike(true);
+        break;
+      }
+    }
   }
+
 
   let getComments = async () =>{
     let res = await fetch('/api/v1/comments/')
@@ -89,26 +144,22 @@ const Posts = props => {
     }
     return result;
   };
+
   const save = async () => {
-    console.log(newcomment)
-    console.log(sessionStorage.getItem('user_name'))
-    console.log(posts[idx]?.id)
     let formData = new FormData();
     formData.append('comment',newcomment);
     formData.append('user_name',sessionStorage.getItem('user_name'))
     formData.append('post_id', posts[idx]?.id);
 
-    fetch('api/v1/comments/', { // Your POST endpoint
+    fetch('api/v1/comments/', {
         method: 'POST',
         body: formData
     }).then(
-        response => response.json() // if the response is a JSON object
+        response => response.json() 
     ).then(
-        //TODO:save also in customer object
         success => console.log(success) 
-        // Handle the success response object
     ).catch(
-        error => console.log(error) // Handle the error response object
+        error => console.log(error)
     );
     window.location.reload()
   }
@@ -141,8 +192,8 @@ const Posts = props => {
           <div style={{ display: "flex" }}>
             <IconButton aria-label="like" component="span" onClick={handleLike} style={{ width: "10%", color: "white"}}>
               { like
-                ? <FavoriteBorderIcon /> 
-                : <FavoriteIcon />
+                ? <FavoriteIcon />
+                : <FavoriteBorderIcon /> 
               }
             </IconButton>
             <TextField
