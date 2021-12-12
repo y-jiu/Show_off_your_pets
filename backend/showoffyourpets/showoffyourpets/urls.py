@@ -29,8 +29,6 @@ router = routers.DefaultRouter()
 router.register('users', community.api.UserViewSet)
 router.register('posts', community.api.PostViewSet)
 router.register('comments', community.api.CommentViewSet)
-router.register('fosterposts', community.api.FosterPostViewSet)
-router.register('fostercomments', community.api.FosterCommentViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

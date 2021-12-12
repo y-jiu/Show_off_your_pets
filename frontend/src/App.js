@@ -5,7 +5,6 @@ import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import Gallery from './pages/Gallery';
 import Petoftheday from './pages/Petoftheday';
-import Fostering from './pages/Fostering';
 import { createTheme, ThemeProvider } from '@material-ui/core'
 
 const App = () => {
@@ -24,7 +23,6 @@ const App = () => {
             <Route path="/main" element = {MainPage()} ></Route>
             <Route path="/gallery" element = {Gallery()} ></Route>
             <Route path="/petoftheday" element = {Petoftheday()} ></Route>
-            <Route path="/fostering" element = {Fostering()} ></Route>
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

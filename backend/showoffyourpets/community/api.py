@@ -1,4 +1,4 @@
-from .models import Comment, User, Post, FosterComment, FosterPost
+from .models import Comment, User, Post
 from rest_framework import serializers, viewsets
 
 class UserSerializer(serializers.ModelSerializer):
@@ -29,20 +29,3 @@ class PostSerializer(serializers.ModelSerializer):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-class FosterPostSerializer(serializers.ModelSerializer):
-  class Meta:
-      model = FosterPost
-      fields = '__all__'
-
-class FosterPostViewSet(viewsets.ModelViewSet):
-    queryset = FosterPost.objects.all()
-    serializer_class = FosterPostSerializer
-
-class FosterCommentSerializer(serializers.ModelSerializer):
-  class Meta:
-      model = FosterComment
-      fields = '__all__'
-
-class FosterCommentViewSet(viewsets.ModelViewSet):
-    queryset = FosterComment.objects.all()
-    serializer_class = FosterCommentSerializer

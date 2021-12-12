@@ -19,13 +19,3 @@ class Comment(models.Model):
   user_name = models.CharField(max_length=200, default = '')
   post_id = models.ForeignKey(Post,on_delete=models.CASCADE, db_column="post_id",default='')
   
-
-class FosterPost(models.Model):
-  title = models.CharField(max_length=1000)
-  contents = models.TextField()
-  photo = models.ImageField(blank=True, null=True)
-  user_name = models.CharField(max_length=200, default = '')
-
-class FosterComment(models.Model):
-  comment = models.TextField()
-  user_name = models.CharField(max_length=200, default = '')
