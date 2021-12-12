@@ -19,14 +19,13 @@ const modalstyle = {
 };
 
 const containerstyle = {
-  backgroundColor:"#DFEAF7",
+  backgroundColor:"whitesmoke",
   width: "500px",
   height: "500px",
   marginLeft: "auto",
   marginRight: "auto",
   marginTop: "50px",
-  paddingTop: "70px",
-  borderRadius: "30px"
+  paddingTop: "70px"
 }
 
 const LoginPage = () => {
@@ -95,8 +94,8 @@ const LoginPage = () => {
       <div>
         <div 
           style={containerstyle}>
-            <div>
-                <Typography variant="h6" style={{color: "dimgrey"}}>Sign in to share how cute your pet is!</Typography>
+              <div>
+                <Typography variant="h6" style={{color: "#2F323B"}}>Sign in to share how cute your pet is!</Typography>
               </div>
             <Stack spacing={2} ml= {20} mr= {20} > 
               
@@ -104,8 +103,8 @@ const LoginPage = () => {
               <TextField id="standard-basic" onChange={handleId} label="ID" variant="standard" />
               <TextField id="standard-basic" onChange={handlePassword} label="PW" variant="standard" type="password"/>
               <div> </div><div> </div><div> </div>
-              <Button onClick={loginCheck} variant="contained">SIGN IN</Button>
-              <Button onClick={handleOpen} variant="contained">SIGN UP</Button>
+              <Button onClick={loginCheck} style = {{backgroundColor: "#576CAB" }} variant="contained">SIGN IN</Button>
+              <Button onClick={handleOpen} style = {{backgroundColor: "#576CAB" }} variant="contained">SIGN UP</Button>
             </Stack>
             <Modal
               open={open}
@@ -122,7 +121,7 @@ const LoginPage = () => {
                   <TextField name = "id" id="standard-basic" onChange={handleId} label="ID" variant="standard" />
                   <TextField name = "password" id="standard-basic" onChange={handlePassword} label="PW" variant="standard" type="password"/>
                   <div> </div><div> </div><div> </div>
-                  <Button variant="contained" onClick={()=>{signedUp(); handleClose();}} >SIGN UP</Button>
+                  <Button variant="contained" style = {{backgroundColor: "#576CAB" }} onClick={()=>{signedUp(); handleClose();}} >SIGN UP</Button>
                 </Stack>
               </Box>
             </Modal>

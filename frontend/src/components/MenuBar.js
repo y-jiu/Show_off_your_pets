@@ -1,20 +1,18 @@
 import * as React from 'react';
-import { Box, ThemeProvider, createTheme, margin } from '@mui/system';
+import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
-import { Route, Routes ,Link } from 'react-router-dom';
-import Gallery from '../pages/Gallery';
-import Petoftheday from '../pages/Petoftheday';
+
 const textStyle = {
   fontSize: "18px",
   color: "white",
   marginLeft: "30px",
-  marginRight: "30px"
+  marginRight: "150px"
 }
 const selectedTextStyle = {
   fontSize: "18px",
   color: "#576CAB",
   marginLeft: "30px",
-  marginRight: "30px"
+  marginRight: "150px"
 }
 
 const MenuBar = () => {
