@@ -1,20 +1,9 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MenuBar from "../components/MenuBar";
 import Box from '@mui/material/Box';
 import Posts from '../components/Posts';
 import Button from '@mui/material/Button';
 import Upload from '../components/Upload';
-
-const modalstyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '50%',
-  backgroundColor:"#2F323B",
-  boxShadow: 24,
-  p: 4,
-};
 
 const Gallery = () => {
   const [openpost, setOpenPost] = React.useState(false);
@@ -27,17 +16,18 @@ const Gallery = () => {
   const handleCloseUpload = () => setOpenUpload(false);
 
   let [posts, setPosts] = useState([]);
-  useEffect(() => {
+
+  useEffect(() => { 
     getPosts()
   }, [])
 
-  let getPosts = async () =>{
+  let getPosts = async () =>{ //fetch posts api
     let res = await fetch('/api/v1/posts/')
     let data = await res.json()
     setPosts(data)
   }
 
-  const renderPost = () => {
+  const renderPost = () => { // Render posts' thumbnail in grid
     const result = [];
     for (let i = 0; i < posts.length; i++) {
       result.push(

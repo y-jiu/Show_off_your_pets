@@ -27,11 +27,11 @@ const Upload = props => {
     setPictures([...pictures, picture]);
   };
   
-  const onInput = (e) =>{
+  const onInput = (e) =>{ // Event function in textfield input
     setText(e.target.value);
   }
 
-  const save = async () => {
+  const save = async () => { // Send post to server
     let formData = new FormData();
     formData.append('contents',text);
     formData.append('photo', pictures[0][0]);

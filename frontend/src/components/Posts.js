@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -12,15 +12,27 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import Modal from '@mui/material/Modal';
 
+const modalstyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '50%',
+  backgroundColor:"#2F323B",
+  boxShadow: 24,
+  p: 4,
+};
+
+
 const Posts = props => {
   const idx = props.postidx
-
   const [like, setLike] = React.useState(false);
+
   const handleLike = () => { 
     let likeusers = posts[idx]?.likes
     if(like == true){
       setLike(false);
-      for(let i = 0 ; i < posts[idx]?.likes.length ; i++ ){
+      for(let i = 0 ; i < posts[idx]?.likes.length ; i++ ){ //Delete current user from likes array
         if(posts[idx]?.likes[i] == parseInt(sessionStorage.getItem('user_id'))){
           likeusers.splice(i,1);
         }
@@ -32,7 +44,7 @@ const Posts = props => {
         likes : likeusers
       }
       let url = 'api/v1/posts/'+posts[idx]?.id+'/'
-      axios.patch(url, update)
+      axios.patch(url, update) // Update posts.likes array 
       .then((result) => {
         console.log(result.data);
       })
@@ -47,7 +59,7 @@ const Posts = props => {
       })
     }else{
       setLike(true);
-      likeusers.push(parseInt(sessionStorage.getItem('user_id')))
+      likeusers.push(parseInt(sessionStorage.getItem('user_id'))) //Add current user from likes array
       const update = {
         id:posts[idx]?.id,
         contents:posts[idx]?.contents,
@@ -55,7 +67,7 @@ const Posts = props => {
         likes : likeusers
       }
       let url = 'api/v1/posts/'+posts[idx]?.id+'/'
-      axios.patch(url, update)
+      axios.patch(url, update) // Update posts.likes array 
       .then((result) => {
         console.log(result.data);
       })
@@ -119,18 +131,7 @@ const Posts = props => {
     setComments(data)
   }
 
-  const modalstyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '50%',
-    backgroundColor:"#2F323B",
-    boxShadow: 24,
-    p: 4,
-  };
-  
-  const renderComments = () => {
+  const renderComments = () => { //Render comments
     const result = [];
     for (let i = 0; i < comments.length; i++) {
       if(comments[i]?.post_id == posts[idx]?.id){
@@ -145,7 +146,7 @@ const Posts = props => {
     return result;
   };
 
-  const save = async () => {
+  const save = async () => { // Send comments to server
     let formData = new FormData();
     formData.append('comment',newcomment);
     formData.append('user_name',sessionStorage.getItem('user_name'))

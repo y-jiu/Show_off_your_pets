@@ -50,7 +50,7 @@ const LoginPage = () => {
     }
     let [loginauth, setLogin] = React.useState([]);
 
-    let getLogin = async () =>{
+    let getLogin = async () =>{ //fetch user api for loginCheck()
       let res = await fetch('/api/v1/users/')
       let data = await res.json()
       setLogin(data)
@@ -60,7 +60,7 @@ const LoginPage = () => {
       getLogin()
     }, [])
 
-    function loginCheck(e) {
+    function loginCheck(e) { // Check for login
       e.preventDefault();
       for(let i = 0 ; i < loginauth.length ; i++){
         if (loginauth[i].user_id == id){
@@ -72,7 +72,7 @@ const LoginPage = () => {
         }
       }
     }
-    const signedUp = () =>{
+    const signedUp = () =>{ // When Sign Up button is clicked in Sign up modal
       let formData = new FormData();
       formData.append('user_name',username);
       formData.append('user_id',id);

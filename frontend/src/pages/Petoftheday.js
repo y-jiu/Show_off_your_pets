@@ -1,5 +1,4 @@
 import MenuBar from "../components/MenuBar";
-import Posts from "../components/Posts";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -9,24 +8,70 @@ import SendIcon from '@mui/icons-material/Send';
 import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
-import Modal from '@mui/material/Modal';
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 const Petoftheday = () => {
   let [posts, setPosts] = useState([]);
-let [idx, setIdx] = useState(0);
-let [comments, setComments] = useState([]);
-let [newcomment, setNewcomment] = useState('');
-const [like, setLike] = React.useState(false);
+  let [idx, setIdx] = useState(0);
+  let [comments, setComments] = useState([]);
+  let [newcomment, setNewcomment] = useState('');
+  let [like, setLike] = React.useState(false);
+
+  const onInput = (e) =>{ // Event function on comment textfield
+    setNewcomment(e.target.value);
+  }
+
+  useEffect(() => { //Fetch apis
+    getPosts()
+    getComments()
+  }, [])
+
+  let getPosts = async () =>{
+    let res = await fetch('/api/v1/posts/')
+    let data = await res.json()
+    setPosts(data)
+    let temp = 0;
+    for(let i = 0 ; i < data.length ; i++){
+      if(data[i].likes.length > temp){
+        setIdx(i)
+      }
+    }
+    for (let i = 0 ; i < data[idx].likes.length ; i++){
+      if(data[idx].likes[i] == parseInt(sessionStorage.getItem('user_id'))){
+        setLike(true);
+        break;
+      }
+    }
+  }
+
+  let getComments = async () =>{
+    let res = await fetch('/api/v1/comments/')
+    let data = await res.json()
+    setComments(data)
+  }
+
+  const renderComments = () => { //Render comments
+    const result = [];
+    for (let i = 0; i < comments.length; i++) {
+      if(comments[i]?.post_id == posts[idx]?.id){
+        result.push(
+          <div style ={{display:"flex"}}>
+            <p style = {{fontSize: "15px", fontWeight: "bold", marginRight: "20px"}}> {comments[i].user_name} </p>
+            <p style = {{fontSize: "15px"}}> {comments[i].comment} </p>
+          </div>
+      );
+      }
+    }
+    return result;
+  };
 
   const handleLike = () => { 
     let likeusers = posts[idx]?.likes
     if(like == true){
       setLike(false);
-      for(let i = 0 ; i < posts[idx]?.likes.length ; i++ ){
+      for(let i = 0 ; i < posts[idx]?.likes.length ; i++ ){ //Delete current user from likes array
         if(posts[idx]?.likes[i] == parseInt(sessionStorage.getItem('user_id'))){
           likeusers.splice(i,1);
         }
@@ -38,7 +83,7 @@ const [like, setLike] = React.useState(false);
         likes : likeusers
       }
       let url = 'api/v1/posts/'+posts[idx]?.id+'/'
-      axios.patch(url, update)
+      axios.patch(url, update) // Update posts.likes array 
       .then((result) => {
         console.log(result.data);
       })
@@ -53,7 +98,7 @@ const [like, setLike] = React.useState(false);
       })
     }else{
       setLike(true);
-      likeusers.push(parseInt(sessionStorage.getItem('user_id')))
+      likeusers.push(parseInt(sessionStorage.getItem('user_id'))) //Add current user from likes array
       const update = {
         id:posts[idx]?.id,
         contents:posts[idx]?.contents,
@@ -61,7 +106,7 @@ const [like, setLike] = React.useState(false);
         likes : likeusers
       }
       let url = 'api/v1/posts/'+posts[idx]?.id+'/'
-      axios.patch(url, update)
+      axios.patch(url, update) // Update posts.likes array 
       .then((result) => {
         console.log(result.data);
       })
@@ -74,86 +119,27 @@ const [like, setLike] = React.useState(false);
             console.log(error.message)
           }
       })
-  }
-  
- };
-
-const onInput = (e) =>{
-  setNewcomment(e.target.value);
-}
-useEffect(() => {
-  getPosts()
-  getComments()
-}, [])
-
-let getPosts = async () =>{
-  let res = await fetch('/api/v1/posts/')
-  let data = await res.json()
-  setPosts(data)
-  let temp = 0;
-  for(let i = 0 ; i < data.length ; i++){
-    if(data[i].likes.length > temp){
-      setIdx(i)
     }
-  }
-  for (let i = 0 ; i < data[idx].likes.length ; i++){
-    if(data[idx].likes[i] == parseInt(sessionStorage.getItem('user_id'))){
-      setLike(true);
-      break;
-    }
-  }
-}
+  };
 
-let getComments = async () =>{
-  let res = await fetch('/api/v1/comments/')
-  let data = await res.json()
-  setComments(data)
-}
+  const save = async () => {  //Send comments to server
+    let formData = new FormData();
+    formData.append('comment',newcomment);
+    formData.append('user_name',sessionStorage.getItem('user_name'))
+    formData.append('post_id', posts[idx]?.id);
 
-const modalstyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '50%',
-  backgroundColor:"#2F323B",
-  boxShadow: 24,
-  p: 4,
-};
-
-const renderComments = () => {
-  const result = [];
-  for (let i = 0; i < comments.length; i++) {
-    if(comments[i]?.post_id == posts[idx]?.id){
-      result.push(
-        <div style ={{display:"flex"}}>
-          <p style = {{fontSize: "15px", fontWeight: "bold", marginRight: "20px"}}> {comments[i].user_name} </p>
-          <p style = {{fontSize: "15px"}}> {comments[i].comment} </p>
-        </div>
+    fetch('api/v1/comments/', {
+        method: 'POST',
+        body: formData
+    }).then(
+        response => response.json() 
+    ).then(
+        success => console.log(success) 
+    ).catch(
+        error => console.log(error)
     );
-    }
+    window.location.reload()
   }
-  return result;
-};
-
-const save = async () => {
-  let formData = new FormData();
-  formData.append('comment',newcomment);
-  formData.append('user_name',sessionStorage.getItem('user_name'))
-  formData.append('post_id', posts[idx]?.id);
-
-  fetch('api/v1/comments/', {
-      method: 'POST',
-      body: formData
-  }).then(
-      response => response.json() 
-  ).then(
-      success => console.log(success) 
-  ).catch(
-      error => console.log(error)
-  );
-  window.location.reload()
-}
   return (
     <div>
       <MenuBar>

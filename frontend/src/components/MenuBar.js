@@ -17,27 +17,29 @@ const selectedTextStyle = {
 
 const MenuBar = () => {
   const [flag, setFlag] = React.useState(false);
+
   React.useEffect(() => {
     getFlag()
   }, [])
   
-  const getFlag = () => {
+  const getFlag = () => { // When the current page is petoftheday,
     if(window.location.href =='http://localhost:3000/petoftheday'){
-      setFlag(true)
+      setFlag(true) //set flag true to change button text color
     }
   }
   
   function goGallery(e) {
     setFlag(false)
     e.preventDefault();
-    window.location.href = '/gallery'
+    window.location.href = '/gallery' //When Gallery button is clicked in menubar, route to the page
   }
 
   function goPetofttheday(e) {
     setFlag(true)
     e.preventDefault();
-    window.location.href = '/petoftheday'
+    window.location.href = '/petoftheday' //When Pet of the day button is clicked in menubar, route to the page
   }
+
   function signOut(e) {
     e.preventDefault();
     window.location.href = '/'
